@@ -21,6 +21,7 @@ from connect_telegram import bot
 
 def send_message_client(user_id):
     bot.send_message(user_id, 'Отправка сообщений')
+    # print('Отправка сообщений')
     start_time = datetime.datetime.now()
     sheet_excursions, work_sheet_excursions = connect(settings.SHEET_EXCURSIONS, "продажи 2022",
                                                       ['D', 'E', 'F', 'G', 'H', 'I', 'J', 'P', 'R'])
@@ -55,6 +56,7 @@ def send_message_client(user_id):
                                     value}\nМобильный номер: {phone_number}\nКол-во туристов: {i[6].
                                     value}"""
                                     bot.send_message(guid[2].value, new_message)
+                                    # print(new_message)
                                     position.append(f'R{k.row}')
                                     values.append([[f'Отправлено {datetime.datetime.now().strftime("%H:%M:%S")}']])
                                 except Exception:
@@ -63,10 +65,18 @@ def send_message_client(user_id):
                                                     f'{datetime.datetime.now().strftime("%d.%m.%y %H:%M")}\n')
                             elif len(guid) != 3:
                                 not_sent.append(f'Строка: {cell.label[1:]}, лист: Гиды. Не все поля заполнены\n')
-                            elif len(i) != 8:
-                                not_sent.append(f'НЕ ДОСТАВЛЕНО!!!! Строка: {k.label[1:]},'
-                                                f' не заполнено значение в одном из полей\n')
+                            if len(i) != 8 and k.value == str(date()[1]):
+                                if i[-1].label[0:1] != "R":
+                                    context = f'НЕ ДОСТАВЛЕНО!!!! Строка: {k.label[1:]},' \
+                                              f' не заполнено значение в одном из полей\n'
+                                    if context not in not_sent:
+                                        not_sent.append(context)
     bot.send_message(user_id, not_sent)
+    # print(not_sent)
     work_sheet_excursions.update_values_batch(position, values)
     end_time = datetime.datetime.now()
     bot.send_message(user_id, f'Отправка закончена, время выполнения {(end_time - start_time)}')
+    # print(f'Отправка закончена, время выполнения {(end_time - start_time)}')
+
+
+# send_message_client(12)
