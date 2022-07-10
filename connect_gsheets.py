@@ -1,8 +1,13 @@
+from pathlib import Path
+
 import settings
 import pygsheets
 
-client = pygsheets.authorize(client_secret=settings.KEY_CONSTANT, credentials_directory=settings.KEY_PATH)
 # client = pygsheets.authorize(client_secret=settings.KEY_PATH)
+dir_path = Path.cwd()
+path = Path(dir_path, settings.KEY_CONSTANT)
+
+client = pygsheets.authorize(client_secret=path, credentials_directory=dir_path)
 
 
 def connect(sheet, worksheet, columns):

@@ -214,3 +214,7 @@ cython_debug/
 /.idea/
 /settings_production.py
 /settings.py
+/client_secret_490340875770-3n25oqcs1g62gd7jv6g73cdus44kvuvh.apps.googleusercontent.com.json
+/sheets.googleapis.com-python.json
+/webhook_cert1.pem
+/webhook_pkey1.pem

@@ -11,6 +11,7 @@ from fill_food import fill_food
 from fill_transport import fill_transport
 from keyboard_telegram import keyboard
 from menu_telegram import menu
+from send_message_client import send_message_client
 from shedule import thr
 from send_message import send_message
 
@@ -39,9 +40,14 @@ def choice(message):
                 threading.Thread(bot.register_next_step_handler(message, fill_transport, main_menu))
         else:
             bot.send_message(message.chat.id, f'У вас нет доступа, ваш telegram_id - {message.from_user.id}')
-    elif message.text == 'Отправить сообщение':
+    elif message.text == 'Отправить сообщение, транспорт':
         if str(message.from_user.id) in settings.ACCESS.values():
             threading.Thread(send_message(message.chat.id))
+        else:
+            bot.send_message(message.chat.id, f'У вас нет доступа, ваш telegram_id - {message.from_user.id}')
+    elif message.text == 'Отправить сообщение, клиенты':
+        if str(message.from_user.id) in settings.ACCESS.values():
+            threading.Thread(send_message_client())
         else:
             bot.send_message(message.chat.id, f'У вас нет доступа, ваш telegram_id - {message.from_user.id}')
     elif message.text == 'Показать мой telegram_id':
@@ -66,8 +72,10 @@ app.router.add_post('/{token}/', handle)
 # schedule.every(1).minutes.do(send_message, settings.SENT_REPORT)
 # Set shedule
 # Отправка сообщения по заданному времени.
-schedule.every().day.at(settings.SENDING_TIME).do(send_message, settings.SENT_REPORT)
+schedule.every().day.at(settings.SENDING_TIME_TRANSPORT).do(send_message, settings.SENT_REPORT)
 threading.Thread(target=thr).start()
+
+
 
 # Remove webhook, it fails sometimes the set if there is a previous webhook
 bot.remove_webhook()
