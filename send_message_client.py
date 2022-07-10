@@ -21,6 +21,7 @@ from connect_telegram import bot
 
 def send_message_client(user_id):
     bot.send_message(user_id, 'Отправка сообщений')
+    # print('Отправка сообщений')
     start_time = datetime.datetime.now()
     sheet_excursions, work_sheet_excursions = connect(settings.SHEET_EXCURSIONS, "продажи 2022",
                                                       ['D', 'E', 'F', 'G', 'H', 'I', 'J', 'P', 'R'])
@@ -64,9 +65,13 @@ def send_message_client(user_id):
                                               f' не заполнено значение в одном из полей\n'
                                     if context not in not_sent:
                                         not_sent.append(context)
-    bot.send_message(user_id, not_sent)
+    if len(not_sent) != 0:
+        bot.send_message(user_id, not_sent)
     # print(not_sent)
     work_sheet_excursions.update_values_batch(position, values)
     end_time = datetime.datetime.now()
     bot.send_message(user_id, f'Отправка закончена, время выполнения {(end_time - start_time)}')
     # print(f'Отправка закончена, время выполнения {(end_time - start_time)}')
+
+
+send_message_client(12)
