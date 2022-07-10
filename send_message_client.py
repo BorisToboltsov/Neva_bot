@@ -21,7 +21,6 @@ from connect_telegram import bot
 
 def send_message_client(user_id):
     bot.send_message(user_id, 'Отправка сообщений')
-    # print('Отправка сообщений')
     start_time = datetime.datetime.now()
     sheet_excursions, work_sheet_excursions = connect(settings.SHEET_EXCURSIONS, "продажи 2022",
                                                       ['D', 'E', 'F', 'G', 'H', 'I', 'J', 'P', 'R'])
@@ -35,12 +34,6 @@ def send_message_client(user_id):
         for j in i:
             if j.value == "Невские Сезоны":
                 for k in i:
-                    # if k.value == str(date()[1]):
-                    #     if len(i) != 8:
-                    #         not_sent.append(f'НЕ ДОСТАВЛЕНО!!!! Строка: {k.label[1:]},'
-                    #                         f' не заполнено значение в одном из полей\n')
-                    #     elif len(i) == 8 and i[-1].value[:10] != "Отправлено":
-                    #         sent.append(i)
                     for guid in sheet_guides:
                         for cell in guid:
                             if cell.value == k.value and len(guid) == 3 and len(i) == 8 and i[-1].value[:10] != "Отправлено":
@@ -77,6 +70,3 @@ def send_message_client(user_id):
     end_time = datetime.datetime.now()
     bot.send_message(user_id, f'Отправка закончена, время выполнения {(end_time - start_time)}')
     # print(f'Отправка закончена, время выполнения {(end_time - start_time)}')
-
-
-# send_message_client(12)

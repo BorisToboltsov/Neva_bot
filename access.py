@@ -3,7 +3,6 @@ from connect_gsheets import connect
 
 
 def check_access(user_id):
-    print(2)
     sheet_access = connect(settings.SHEET_ACCESS, "Доступ",
                            ['A', 'B', 'C'])[0]
 
@@ -17,9 +16,6 @@ def check_access(user_id):
             sales_access[cell[1].value] = [cell[0].value, cell[2].value]
         elif cell[2].value == "SUPPLIERS_ACCESS":
             suppliers_access[cell[1].value] = [cell[0].value, cell[2].value]
-    print(full_access)
-    print(sales_access)
-    print(suppliers_access)
     if str(user_id) in full_access:
         check = "FULL_ACCESS"
     elif str(user_id) in sales_access:
@@ -28,5 +24,4 @@ def check_access(user_id):
         check = "SUPPLIERS_ACCESS"
     else:
         check = "NOT_ACCESS"
-    print(check)
     return check
