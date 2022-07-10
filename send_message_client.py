@@ -50,6 +50,7 @@ def send_message_client(user_id):
                                     value}\nМобильный номер: {phone_number}\nКол-во туристов: {i[6].
                                     value}"""
                                     bot.send_message(guid[2].value, new_message)
+                                    bot.send_message(user_id, f'ДОСТАВЛЕНО:\n{new_message}')
                                     # print(new_message)
                                     position.append(f'R{k.row}')
                                     values.append([[f'Отправлено {datetime.datetime.now().strftime("%H:%M:%S")}']])
