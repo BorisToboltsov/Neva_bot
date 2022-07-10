@@ -37,7 +37,8 @@ def send_message_client(user_id):
                 for k in i:
                     for guid in sheet_guides:
                         for cell in guid:
-                            if cell.value == k.value and len(guid) == 3 and len(i) == 8 and i[-1].value[:10] != "Отправлено":
+                            if (cell.value == k.value and len(guid) == 3 and len(i) == 8 and i[-1].value[:10] != "Отправлено" and i[2].value == str(date()[1])) or \
+                               (cell.value == k.value and len(guid) == 3 and len(i) == 8 and i[-1].value[:10] != "Отправлено" and i[2].value == str(date()[3])):
                                 try:
                                     phone_number = "".join(re.findall(r'\d', i[5].value))
                                     if len(phone_number) == 11:
@@ -68,8 +69,9 @@ def send_message_client(user_id):
                                         not_sent.append(context)
     if len(not_sent) != 0:
         bot.send_message(user_id, not_sent)
-    # print(not_sent)
+        # print(not_sent)
     work_sheet_excursions.update_values_batch(position, values)
     end_time = datetime.datetime.now()
     bot.send_message(user_id, f'Отправка закончена, время выполнения {(end_time - start_time)}')
-    # print(f'Отправка закончена, время выполнения {(end_time - start_time)}')
+#     print(f'Отправка закончена, время выполнения {(end_time - start_time)}')
+# send_message_client(12)

@@ -10,5 +10,6 @@ def date():
     tomorrow = today + datetime.timedelta(days=1)
     next_month_ru = list_month[tomorrow.strftime("%B")]
     tomorrow = tomorrow.strftime("%d.%m")
+    today = today.strftime("%d.%m")
 
-    return next_month_ru, tomorrow, list_month
+    return next_month_ru, tomorrow, list_month, today
