@@ -19,7 +19,9 @@ from connect_telegram import bot
 """
 
 
-def send_message_client():
+def send_message_client(user_id):
+    bot.send_message(user_id, 'Отправка сообщений')
+    start_time = datetime.datetime.now()
     sheet_excursions, work_sheet_excursions = connect(settings.SHEET_EXCURSIONS, "продажи 2022",
                                                       ['D', 'E', 'F', 'G', 'H', 'I', 'J', 'P', 'R'])
     sheet_guides = connect(settings.SHEET_TRANSPORT, 'Гиды', ['A', 'B', 'C'])[0]
@@ -64,6 +66,7 @@ def send_message_client():
                             elif len(i) != 8:
                                 not_sent.append(f'НЕ ДОСТАВЛЕНО!!!! Строка: {k.label[1:]},'
                                                 f' не заполнено значение в одном из полей\n')
-
-    bot.send_message(724746757, not_sent)
+    bot.send_message(user_id, not_sent)
     work_sheet_excursions.update_values_batch(position, values)
+    end_time = datetime.datetime.now()
+    bot.send_message(user_id, f'Отправка закончена, время выполнения {(end_time - start_time)}')

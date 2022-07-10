@@ -47,7 +47,7 @@ def choice(message):
             bot.send_message(message.chat.id, f'У вас нет доступа, ваш telegram_id - {message.from_user.id}')
     elif message.text == 'Отправить сообщение, клиенты':
         if str(message.from_user.id) in settings.ACCESS.values():
-            threading.Thread(send_message_client())
+            threading.Thread(send_message_client(message.from_user.id))
         else:
             bot.send_message(message.chat.id, f'У вас нет доступа, ваш telegram_id - {message.from_user.id}')
     elif message.text == 'Показать мой telegram_id':
