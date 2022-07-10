@@ -5,6 +5,7 @@ import telebot
 import schedule
 from aiohttp import web
 
+from access import check_access
 from common import date
 from connect_telegram import bot
 from fill_food import fill_food
@@ -24,7 +25,8 @@ app = web.Application()
 @bot.message_handler(commands=['help', 'start'])
 def start_message(message):
     if message.text == '/start':
-        bot.send_message(message.chat.id, f'Ваш telegram_id - {message.from_user.id}')
+        main_menu = menu(message.from_user.id)
+        bot.send_message(message.chat.id, f'Ваш telegram_id - {message.from_user.id}', reply_markup=main_menu)
         bot.register_next_step_handler(message, choice)
 
 
