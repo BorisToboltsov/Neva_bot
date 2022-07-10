@@ -4,7 +4,6 @@ from connect_telegram import bot
 
 
 def check_access(user_id):
-    bot.send_message(user_id, f'Проверка доступа')
     sheet_access = connect(settings.SHEET_ACCESS, "Доступ",
                            ['A', 'B', 'C'])[0]
 
