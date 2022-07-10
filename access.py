@@ -3,6 +3,7 @@ from connect_gsheets import connect
 
 
 def check_access(user_id):
+    print(2)
     sheet_access = connect(settings.SHEET_ACCESS, "Доступ",
                            ['A', 'B', 'C'])[0]
 

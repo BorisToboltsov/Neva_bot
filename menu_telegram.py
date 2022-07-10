@@ -5,6 +5,7 @@ from access import check_access
 
 def menu(user_id):
     """Основное меню"""
+    print(1)
     check = check_access(user_id)
     print(check)
     if check == "FULL_ACCESS":
