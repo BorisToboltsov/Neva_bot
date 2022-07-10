@@ -30,27 +30,27 @@ def start_message(message):
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def choice(message):
     main_menu = menu(message.from_user.id)
-    # if message.text == 'Заполнить питание' or 'Заполнить транспорт':
+    if message.text == 'Заполнить питание' or message.text == 'Заполнить транспорт':
+        if str(message.from_user.id) in settings.ACCESS.values():
+            bot.send_message(message.chat.id, 'Выберите месяц', reply_markup=keyboard(date()[2].values()))
+            if message.text == 'Заполнить питание':
+                threading.Thread(bot.register_next_step_handler(message, fill_food, main_menu))
+            else:
+                threading.Thread(bot.register_next_step_handler(message, fill_transport, main_menu))
+        else:
+            bot.send_message(message.chat.id, f'У вас нет доступа, ваш telegram_id - {message.from_user.id}')
+    # if message.text == 'Заполнить питание':
     #     if str(message.from_user.id) in settings.ACCESS.values():
     #         bot.send_message(message.chat.id, 'Выберите месяц', reply_markup=keyboard(date()[2].values()))
-    #         if message.text == 'Заполнить питание':
-    #             threading.Thread(bot.register_next_step_handler(message, fill_food, main_menu))
-    #         else:
-    #             threading.Thread(bot.register_next_step_handler(message, fill_transport, main_menu))
+    #         threading.Thread(bot.register_next_step_handler(message, fill_food, main_menu))
     #     else:
     #         bot.send_message(message.chat.id, f'У вас нет доступа, ваш telegram_id - {message.from_user.id}')
-    if message.text == 'Заполнить питание':
-        if str(message.from_user.id) in settings.ACCESS.values():
-            bot.send_message(message.chat.id, 'Выберите месяц', reply_markup=keyboard(date()[2].values()))
-            threading.Thread(bot.register_next_step_handler(message, fill_food, main_menu))
-        else:
-            bot.send_message(message.chat.id, f'У вас нет доступа, ваш telegram_id - {message.from_user.id}')
-    elif message.text == 'Заполнить транспорт':
-        if str(message.from_user.id) in settings.ACCESS.values():
-            bot.send_message(message.chat.id, 'Выберите месяц', reply_markup=keyboard(date()[2].values()))
-            threading.Thread(bot.register_next_step_handler(message, fill_transport, main_menu))
-        else:
-            bot.send_message(message.chat.id, f'У вас нет доступа, ваш telegram_id - {message.from_user.id}')
+    # elif message.text == 'Заполнить транспорт':
+    #     if str(message.from_user.id) in settings.ACCESS.values():
+    #         bot.send_message(message.chat.id, 'Выберите месяц', reply_markup=keyboard(date()[2].values()))
+    #         threading.Thread(bot.register_next_step_handler(message, fill_transport, main_menu))
+    #     else:
+    #         bot.send_message(message.chat.id, f'У вас нет доступа, ваш telegram_id - {message.from_user.id}')
     elif message.text == 'Отправить сообщение':
         if str(message.from_user.id) in settings.ACCESS.values():
             threading.Thread(send_message(message.chat.id))
