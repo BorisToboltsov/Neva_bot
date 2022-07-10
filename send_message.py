@@ -5,7 +5,6 @@ import settings
 from common import date
 from connect_gsheets import connect
 from connect_telegram import bot
-from menu_telegram import choice
 
 
 def send_message(message):
@@ -76,4 +75,5 @@ def send_message(message):
         end_time = datetime.datetime.now()
         bot.send_message(message, f'Отправка закончена, время выполнения {(end_time - start_time)}')
     else:
-        bot.register_next_step_handler(message, choice)
+        pass
+        # bot.register_next_step_handler(message, choice)

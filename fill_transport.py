@@ -4,7 +4,7 @@ import settings
 from common import date
 from connect_gsheets import connect
 from connect_telegram import bot
-from menu_telegram import choice
+from keyboard_telegram import keyboard
 
 
 def fill_transport(message, main_menu):
@@ -53,5 +53,6 @@ def fill_transport(message, main_menu):
         bot.send_message(message.chat.id, f'Заполнение окончено, время выполнения {end_time - start_time}',
                          reply_markup=main_menu)
     else:
-        bot.reply_to(message, 'Здесь необходимо выбрать месяц, попробуйте еще раз', reply_markup=main_menu)
-        bot.register_next_step_handler(message, choice)
+        bot.reply_to(message, 'Здесь необходимо выбрать месяц, попробуйте еще раз', 
+                     reply_markup=keyboard(date()[2].values()))
+        bot.register_next_step_handler(message, fill_transport, main_menu)
