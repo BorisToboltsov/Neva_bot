@@ -75,7 +75,10 @@ app.router.add_post('/{token}/', handle)
 # schedule.every(1).minutes.do(send_message, settings.SENT_REPORT)
 # Set shedule
 # Отправка сообщения по заданному времени.
-schedule.every().day.at(settings.SENDING_TIME_TRANSPORT).do(send_message, settings.SENT_REPORT)
+schedule.every().day.at(settings.SENDING_TIME_TRANSPORT).do(send_message, settings.SENT_REPORT_TRANSPORT)
+threading.Thread(target=thr).start()
+
+schedule.every().day.at(settings.SENDING_TIME_GUID).do(send_message_client, settings.SENT_REPORT_GUIDE)
 threading.Thread(target=thr).start()
 
 
