@@ -6,7 +6,7 @@ from access import check_access
 def menu(user_id):
     """Основное меню"""
     check = check_access(user_id)
-
+    print(check)
     if check == "FULL_ACCESS":
         main_menu = keyboard(
             ['Заполнить питание', 'Заполнить транспорт', 'Отправить сообщение, транспорт',
