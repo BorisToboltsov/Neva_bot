@@ -7,15 +7,15 @@ from connect_gsheets import connect
 from connect_telegram import bot
 
 """
-'D' - Название Экскурсии
-'E' - Поставщик
-'F' - Дата экскурсии
-'G' - Место сбора
-'H' - Фио туристов
-'I' - Моб.номер
-'J' - Кол-во туристов
-'P' - Гид
-'R' - Статус
+'E' - Название Экскурсии
+'F' - Поставщик
+'G' - Дата экскурсии
+'H' - Место сбора
+'I' - Фио туристов
+'J' - Моб.номер
+'K' - Кол-во туристов
+'Q' - Гид
+'S' - Статус
 """
 
 
@@ -24,7 +24,7 @@ def send_message_client(user_id):
     # print('Отправка сообщений')
     start_time = datetime.datetime.now()
     sheet_excursions, work_sheet_excursions = connect(settings.SHEET_EXCURSIONS, "продажи 2022",
-                                                      ['D', 'E', 'F', 'G', 'H', 'I', 'J', 'P', 'R'])
+                                                      ['E', 'F', 'G', 'H', 'I', 'J', 'K', 'Q', 'S'])
     sheet_guides = connect(settings.SHEET_TRANSPORT, 'Гиды', ['A', 'B', 'C'])[0]
 
     not_sent = []
@@ -53,7 +53,7 @@ def send_message_client(user_id):
                                     bot.send_message(guid[2].value, new_message)
                                     bot.send_message(user_id, f'ДОСТАВЛЕНО:\n{new_message}')
                                     # print(new_message)
-                                    position.append(f'R{k.row}')
+                                    position.append(f'S{k.row}')
                                     values.append([[f'Отправлено {datetime.datetime.now().strftime("%H:%M:%S")}']])
                                 except Exception:
                                     not_sent.append(f'НЕ ДОСТАВЛЕНО!!!! Невозможно начать чат с пользователем {cell.value}'
@@ -62,7 +62,7 @@ def send_message_client(user_id):
                             elif len(guid) != 3:
                                 not_sent.append(f'Строка: {cell.label[1:]}, лист: Гиды. Не все поля заполнены\n')
                             if len(i) != 8 and k.value == str(date()[1]):
-                                if i[-1].label[0:1] != "R":
+                                if i[-1].label[0:1] != "S":
                                     context = f'НЕ ДОСТАВЛЕНО!!!! Строка: {k.label[1:]},' \
                                               f' не заполнено значение в одном из полей\n'
                                     if context not in not_sent:
