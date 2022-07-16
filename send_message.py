@@ -66,11 +66,11 @@ def send_message(message):
                                                 f'не заполнено значение в одном из полей B, D, E, K, L, M, N, P, Q!\n')
         work_sheet_month.update_values_batch(position, values)
         if len(shipped) != 0:  # Отправка отчета!
-            bot.send_message(settings.SENT_REPORT, f"{''.join(shipped)}")
+            bot.send_message(settings.SENT_REPORT_TRANSPORT, f"{''.join(shipped)}")
         if len(not_sent) != 0:  # Отправка отчета!
-            bot.send_message(settings.SENT_REPORT, f"{''.join(set(not_sent))}")
+            bot.send_message(settings.SENT_REPORT_TRANSPORT, f"{''.join(set(not_sent))}")
         if len(incongruity) != 0:  # Отправка отчета!
-            bot.send_message(settings.SENT_REPORT, f"Не заполнены какие-то поля в таблице! \n"
+            bot.send_message(settings.SENT_REPORT_TRANSPORT, f"Не заполнены какие-то поля в таблице! \n"
                                                    f"{''.join(set(incongruity))}")
         end_time = datetime.datetime.now()
         bot.send_message(message, f'Отправка закончена, время выполнения {(end_time - start_time)}')
