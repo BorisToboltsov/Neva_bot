@@ -74,4 +74,7 @@ def send_message_client(user_id):
     end_time = datetime.datetime.now()
     bot.send_message(user_id, f'Отправка закончена, время выполнения {(end_time - start_time)}')
 #     print(f'Отправка закончена, время выполнения {(end_time - start_time)}')
-# send_message_client(12)
+
+
+if __name__ == "__main__":
+    send_message_client(settings.SENT_REPORT_GUIDE)

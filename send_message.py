@@ -77,3 +77,7 @@ def send_message(message):
     else:
         pass
         # bot.register_next_step_handler(message, choice)
+
+
+if __name__ == "__main__":
+    send_message(settings.SENT_REPORT_TRANSPORT)

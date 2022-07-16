@@ -2,7 +2,7 @@ import ssl
 import threading
 import settings
 import telebot
-import schedule
+# import schedule
 from aiohttp import web
 
 from access import check_access
@@ -13,7 +13,7 @@ from fill_transport import fill_transport
 from keyboard_telegram import keyboard
 from menu_telegram import menu
 from send_message_client import send_message_client
-from shedule import thr
+# from shedule import thr
 from send_message import send_message
 
 WEBHOOK_URL_BASE = f"https://{settings.WEBHOOK_HOST}:{settings.WEBHOOK_PORT}"
@@ -75,11 +75,11 @@ app.router.add_post('/{token}/', handle)
 # schedule.every(1).minutes.do(send_message, settings.SENT_REPORT)
 # Set shedule
 # Отправка сообщения по заданному времени.
-schedule.every().day.at(settings.SENDING_TIME_TRANSPORT).do(send_message, settings.SENT_REPORT_TRANSPORT)
-threading.Thread(target=thr).start()
-
-schedule.every().day.at(settings.SENDING_TIME_GUIDE).do(send_message_client, settings.SENT_REPORT_GUIDE)
-threading.Thread(target=thr).start()
+# schedule.every().day.at(settings.SENDING_TIME_TRANSPORT).do(send_message, settings.SENT_REPORT_TRANSPORT)
+# threading.Thread(target=thr).start()
+#
+# schedule.every().day.at(settings.SENDING_TIME_GUIDE).do(send_message_client, settings.SENT_REPORT_GUIDE)
+# threading.Thread(target=thr).start()
 
 
 
